@@ -119,3 +119,18 @@ function setupRSA(
 console.log(setupRSA(2, 11, 3));
 
 console.log(setupRSARandom());
+
+function encrypt(pub: PublicKey, M: number): number {
+    let C = 1;
+    for (let i = 0; i < pub.e; i++) C = (C * M) % pub.n;
+    return C;
+}
+
+function decrypt(pri: PrivateKey, C: number) {
+    let R = 1;
+    for (let i = 0; i < pri.d; i++) R = (R * C) % pri.n;
+    return R;
+}
+
+console.log(encrypt({ e: 3, n: 22 }, 8));
+console.log(decrypt({ d: 7, n: 22 }, 6));
